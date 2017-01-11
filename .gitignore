@@ -1,0 +1,28 @@
+# Ignore list
+
+# Ignore target folders
+target/
+build/
+
+# Ignore Intellij projects
+.idea/
+*.iml
+*.iws
+
+# Ignore Eclipse projects
+.settings/
+.project
+.classpath
+.buildpath
+
+# Ignore Netbeans projects
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+
+# Ignore intellij artifacts
+classes/artifacts
