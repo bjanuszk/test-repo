@@ -45,7 +45,7 @@ public class Rules {
         File temporaryFile = temporaryFolder.newFile();
         System.out.println("Absolute path: " + temporaryFile.getAbsolutePath());
 
-        Files.write(temporaryFile.toPath(), newArrayList("test input1"));
+        Files.write(temporaryFile.toPath(), newArrayList("test input"));
 
         List<String> content = Files.readAllLines(temporaryFile.toPath());
         assertThat(content.get(0), CoreMatchers.is("test input"));
