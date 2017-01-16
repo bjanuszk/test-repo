@@ -10,7 +10,7 @@ import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class AssumptionsSuite {
+public class AssumptionsSuiteTest {
 
     @Test
     public void assumptionTest() {

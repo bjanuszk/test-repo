@@ -11,7 +11,7 @@ import org.junit.rules.Timeout;
 
 import java.util.ArrayList;
 
-public class Suite1 {
+public class Suite1Test {
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();

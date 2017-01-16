@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @RunWith(Parameterized.class)
-public class ParameterizedSuite {
+public class ParameterizedSuiteTest {
 
     @Parameters(name = "{index}: sum({0}+{1})={2}")
     public static Collection<Object[]> data() {

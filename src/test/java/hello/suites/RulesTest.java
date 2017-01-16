@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
 
-public class Rules {
+public class RulesTest {
 
     @Rule public TemporaryFolder temporaryFolder = new TemporaryFolder();
     @Rule public TestName testName = new TestName();
