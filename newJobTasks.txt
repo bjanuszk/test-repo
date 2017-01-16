@@ -5,4 +5,5 @@
 - Refresh Maven							|home/work
 - TeamCity: simple project with unit test connected to Github	|home/work
 - JSF								|low priority
-- Liquibase							|low priority 
+- Liquibase							|low priority
+- Transactions in Spring
