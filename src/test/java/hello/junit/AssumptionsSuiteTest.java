@@ -1,4 +1,4 @@
-package hello.suites;
+package hello.junit;
 
 import static org.junit.Assume.assumeThat;
 

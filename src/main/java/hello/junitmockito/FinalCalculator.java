@@ -1,6 +1,6 @@
-package hello.fortest;
+package hello.junitmockito;
 
-public class Calculator {
+public final class FinalCalculator {
 
     public int sum(int a, int b) {
         return a + b;

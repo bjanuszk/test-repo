@@ -1,7 +1,6 @@
-package hello.suites;
+package hello.junit;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.CoreMatchers.*;
 
 import org.junit.Assert;
 import org.junit.Rule;

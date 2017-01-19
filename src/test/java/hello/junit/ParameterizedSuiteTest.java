@@ -1,9 +1,9 @@
-package hello.suites;
+package hello.junit;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-import hello.fortest.Calculator;
+import hello.junitmockito.Calculator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;

@@ -1,4 +1,4 @@
-package hello.suites;
+package hello.junit;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

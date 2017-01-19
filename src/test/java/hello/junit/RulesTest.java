@@ -1,4 +1,4 @@
-package hello.suites;
+package hello.junit;
 
 import static org.assertj.core.util.Lists.newArrayList;
 import static org.junit.Assert.assertThat;
