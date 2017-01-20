@@ -1,9 +1,11 @@
-- Get familiar with GitHub via command line			|work
-- JBehave							|work
-- Hibernate & Sybase						|home (business CPU)
-- Refresh JUnit, Mockito, AssertJ				|home/work
-- Refresh Maven							|home/work
+- Get familiar with GitHub via command line			                |work
+- JBehave							                                              |work
+- Hibernate & Sybase				                    		                |home (business CPU)
+- Refresh JUnit, Mockito, AssertJ	                          		|home/work
+- Refresh Maven						                                         |home/work
 - TeamCity: simple project with unit test connected to Github	|home/work
-- JSF								|low priority
-- Liquibase							|low priority
-- Transactions in Spring
+- JSF								                                                 |low priority
+- Liquibase  							                                          |low priority
+- Transactions in Spring                                      |home/work
+- static classes                                              |home/work
+- getResource - how it works?                                 |home/work
