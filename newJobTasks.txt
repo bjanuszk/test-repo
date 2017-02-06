@@ -8,4 +8,58 @@
 - Liquibase  							                                          |low priority
 - Transactions in Spring                                      |home/work
 - static classes                                              |home/work
-- getResource - how it works?                                 |home/work
+- algorytmy sortujące: implementacja                          |home/work
+- rekurencja                                                  |home/work
+________________________________________________________________________________
+- getResource - how it works?
+
+Sa dwie glowne metody pobierania zasobów. Obie tyczą się zasobow z folderu resources, gdzie root (/) to folder
+resources:
+
+1) this.getClass().getResource(resourceName)
+
+  a) this.getClass().getResource("path/to/resourse")
+  Wyszukiwanie wzgledne w zaleznosci od pakietu w którym jest klasa (this). Nalezy w folderze resources odtworzyc
+  scieżke: RESOURCES/package/name/path/to/resource
+
+  b) this.getClass().getResource("/path/to/resourse")
+  Wyszukiwanie bezwzględne: RESOURCES/path/to/resource
+
+2) this.getClass().getClassLoader().getResource(name)
+
+  a) this.getClass().getClassLoader().getResource("path/to/resourse")
+  Wyszukiwanie bezwzględne: RESOURCES/path/to/resource
+
+  b) this.getClass().getClassLoader().getResource("/path/to/resourse")
+  Zwraca null'a. Tak nie mozna robic.
+
+________________________________________________________________________________
+- poziomy izolacji w DB
+
+Poziomy izolacji zwiazane są z równoległym działaniem wielu tranzakcji na tych samych danych w DB. W idealnym
+przypadku można by wydzielić dwa poziomy izolacji:
+- brak współbieżności - tranzakcje są szeregowane i wykonywane jedna po drugiej. Powodowałoby to problemy z wydajnością.
+- maksymalna współbieżność - tranzakcje wykonywane są równolegle, mogą wzajemnie na siebie nachodzić i pracować na
+wzajemnie zmodyfikowanych danych. Wydajnosć jest maksymalna, jednak integralność danych nie jest zachowana.
+
+Anomalie, które mogą występować w przypadku współbieżności tranzakcji:
+- dirty read - jedna tranzakcja odczytuje dane zmienione ale niezatwierdzone przez inną tranzakcję,
+- nonrepeatable read - kolejne odczyty danych w jednej tranzacji dają różne wyniki, z powodu akcji typu UPDATE/DELETE
+ wykonywanych przez inne tranzakcje
+- phantom read - kolejne odczyty danych w jednej tranzacji dają różne wyniki, z powodu akcji typu INSERT
+ wykonywanych przez inne tranzakcje
+
+Aby dać większą elastyczność bazy danych wprowadzają następujące poziomy izolacji (zgodne z SQL92):
+- read uncommited - najniższy poziom izolacji, tranzakcje działają równolegle na danych.
+Problemy: dirty read, nonrepeatable read, phantom read
+- read commited - tranzakcja odczytuje tylko zatwierdzone dane z DB
+Problemy: nonrepeatable read, phantom read
+- repeateable read - jedna tranzakcja nie może odczytywać i zapisywać danych, które są odczytywane badz modyfikowane
+w innej tranzakcji
+Problemy: phantom read
+- serializable - tranzakcje wykonywane są szeregowo. Dane są spójne, wydajność spada.
+------------------------------------------------------------------------------------------------------------------------
+HIBERNATE:
+Uzyta jest baza H2 w trybie serwera (Generic H2 (Server)). URL to jdbc:h2:tcp://localhost/~/hibernateTest
+Podczas polaczenia do bazy h2 nalezy odpalic ja na porcie 8082 (user: sa, password: )
+Plik z baza danych to home/bjanuszk/hibernateTest.mv.db
