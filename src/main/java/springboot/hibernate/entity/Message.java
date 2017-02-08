@@ -13,7 +13,7 @@ public class Message {
 
     private String message;
 
-    // for springboot.hibernate
+    // for hibernate
     public Message() {
     }
 
@@ -27,5 +27,13 @@ public class Message {
 
     public String getMessage() {
         return message;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setMessage(String message) {
+        this.message = message + "___postfix";
     }
 }
