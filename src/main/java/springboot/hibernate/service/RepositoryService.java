@@ -1,7 +1,6 @@
 package springboot.hibernate.service;
 
 import org.springframework.stereotype.Component;
-import springboot.hibernate.entity.Message;
 import springboot.hibernate.session.EntityManagerProvider;
 
 import java.util.List;
@@ -10,15 +9,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 @Component
-public class MessageService {
+public class RepositoryService {
 
-    public void saveMessage(Message message) {
+    public void save(Object objToSave) {
         EntityManager entityManager = EntityManagerProvider.create();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
-            Message ahoj = entityManager.merge(message);
-            System.out.println("Saved message: " + ahoj.getId() + ", " + ahoj.getMessage());
+            Object saved = entityManager.merge(objToSave);
+            System.out.println("Saved object: " + saved.toString());
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
@@ -28,10 +27,11 @@ public class MessageService {
         }
     }
 
-    public List<Message> getMessages() {
+    public List getAll(Class clazz) {
         EntityManager readEntityManager = EntityManagerProvider.create();
         try {
-            return readEntityManager.createQuery("select m from Message m").getResultList();
+            String query = String.format("select t from %s t", clazz.getSimpleName());
+            return readEntityManager.createQuery(query).getResultList();
         } finally {
             readEntityManager.close();
         }

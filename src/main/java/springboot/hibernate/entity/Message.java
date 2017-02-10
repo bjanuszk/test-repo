@@ -7,9 +7,7 @@ import javax.persistence.Id;
 @Entity
 public class Message {
 
-    @Id
-    @GeneratedValue
-    private Long id;
+    @Id @GeneratedValue private Long id;
 
     private String message;
 
@@ -35,5 +33,10 @@ public class Message {
 
     public void setMessage(String message) {
         this.message = message + "___postfix";
+    }
+
+    @Override
+    public String toString() {
+        return "Message{" + "id=" + id + ", message='" + message + '\'' + '}';
     }
 }

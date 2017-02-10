@@ -8,8 +8,10 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springboot.hibernate.entity.Climber;
 import springboot.hibernate.entity.Message;
-import springboot.hibernate.service.MessageService;
+import springboot.hibernate.entity.Route;
+import springboot.hibernate.service.RepositoryService;
 import springboot.hibernate.session.SessionFactoryProvider;
 
 import java.util.List;
@@ -17,15 +19,36 @@ import java.util.List;
 @RestController
 public class H2DbController {
 
-    @Autowired private MessageService messageService;
+    @Autowired private RepositoryService repositoryService;
 
     @RequestMapping("/h2jpa")
     public String h2jpa() {
-        messageService.saveMessage(new Message("aaaahoj"));
+        repositoryService.save(new Message("aaaahoj"));
 
-        List<Message> messages = messageService.getMessages();
+        List<Message> messages = repositoryService.getAll(Message.class);
         messages.stream().forEach(msg -> out.println("id: " + msg.getId() + " msg: " + msg.getMessage()));
         return format("Read %s messages.", messages.size());
+    }
+
+    @RequestMapping("/climberTest")
+    public String climberTest() {
+        Route znikajacyPunkt = new Route("Znikajacy Punkt", "7a+");
+        Route ambrozy = new Route("Ambrozy", "7a");
+        Route nosZubra = new Route("Nos Zubra", "7b");
+        Route hokej = new Route("Hokej", "7a");
+        Route brzytwa = new Route("Brzytwa", "6c+");
+
+        Climber bartek = new Climber("Bartek");
+        bartek.addRoutes(znikajacyPunkt, ambrozy);
+        repositoryService.save(bartek);
+
+        Climber gosia = new Climber("Gosia");
+        gosia.addRoutes(ambrozy, nosZubra, hokej, brzytwa);
+        repositoryService.save(gosia);
+
+        List<Climber> climbers = repositoryService.getAll(Climber.class);
+        climbers.stream().forEach(cl -> out.println(cl.toString()));
+        return format("Read %s climbers.", climbers.size());
     }
 
     @RequestMapping("/h2hibernate")
