@@ -3,39 +3,35 @@ package springboot.hibernate.entity;
 import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-public class Route {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
+public abstract class Route {
 
     @Id
     @SequenceGenerator(name = "route_id_sequence", sequenceName = "route_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "route_id_sequence")
-    private Long routeId;
+    protected Long routeId;
 
-    @Column(nullable = false)
-    private String name;
+    @Column
+    protected String name;
 
-    @Column(nullable = false)
-    private String difficulty;
+    protected String difficulty;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "routes")
-    private Set<Climber> climbers;
-
-
-    Route() {
-    }
-
-    public Route(final String name, final String difficulty) {
-        this.name = name;
-        this.difficulty = difficulty;
-    }
+    protected Set<Climber> climbers;
 
     public Long getRouteId() {
         return routeId;
@@ -49,8 +45,13 @@ public class Route {
         return difficulty;
     }
 
+    public Set<Climber> getClimbers() {
+        return climbers;
+    }
+
     @Override
     public String toString() {
-        return "Route{" + "routeId=" + routeId + ", name='" + name + '\'' + ", difficulty='" + difficulty + '\'' + '}';
+        return "Route{" + "routeId=" + routeId + ", name='" + name + '\'' + ", difficulty='" + difficulty + '\'' + "," +
+                "" + '}';
     }
 }

@@ -2,15 +2,31 @@
 - JBehave							                                              |work
 - Hibernate & Sybase				                    		                |home (business CPU)
 - Refresh JUnit, Mockito, AssertJ	                          		|home/work
-- Refresh Maven						                                         |home/work
+- Refresh Maven	(build phases, lifecycle)                     |home/work
 - TeamCity: simple project with unit test connected to Github	|home/work
 - JSF								                                                 |low priority
 - Liquibase  							                                          |low priority
 - Transactions in Spring                                      |home/work
-- static classes                                              |home/work
 - algorytmy sortujące: implementacja                          |home/work
+- hashCode and equlas in collections                          |home/work
+- xml overview, schema etc.                                   |home/work
+________________________________________________________________________________________________________________________
+- inner classes                                              |home/work
+
+Statyczne:
+Statyczna klasa wewnetrzna jest tworzona konstrukcja: new Outer.InnerStatic(), nie trzeba tworzyc instacji klasy
+zewnetrznej, aby stworzyc klase wewnetrzna.
+Taka klasa ma dostep to prywatnych pol i metod klasy zewnetrzenej ale TYLKO STATYCZNYCH !!!
+
+Niestatyczne:
+Niestatyczna klasa wewnetrzna jest tworzona konstrukcja outer.new Inner(), wymagana jest instancja klasy zewnetrzenej
+do utworzenia klasy wewnetrznej.
+Taka klasa ma dostep do wszystkich pol i metod prywatnych klasy zewnetrznej, zarowno statycznych jak i niestatycznych.
+________________________________________________________________________________________________________________________
 - rekurencja                                                  |home/work
-________________________________________________________________________________
+
+Przyklady w pakiecie recursion
+________________________________________________________________________________________________________________________
 - getResource - how it works?
 
 Sa dwie glowne metody pobierania zasobów. Obie tyczą się zasobow z folderu resources, gdzie root (/) to folder
@@ -33,7 +49,7 @@ resources:
   b) this.getClass().getClassLoader().getResource("/path/to/resourse")
   Zwraca null'a. Tak nie mozna robic.
 
-________________________________________________________________________________
+________________________________________________________________________________________________________________________
 - poziomy izolacji w DB
 
 Poziomy izolacji zwiazane są z równoległym działaniem wielu tranzakcji na tych samych danych w DB. W idealnym

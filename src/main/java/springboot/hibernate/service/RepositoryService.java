@@ -1,8 +1,13 @@
 package springboot.hibernate.service;
 
 import org.springframework.stereotype.Component;
+import springboot.hibernate.entity.Climber;
+import springboot.hibernate.entity.Route;
+import springboot.hibernate.entity.SportRoute;
+import springboot.hibernate.entity.TradRoute;
 import springboot.hibernate.session.EntityManagerProvider;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -11,13 +16,15 @@ import javax.persistence.EntityTransaction;
 @Component
 public class RepositoryService {
 
-    public void save(Object objToSave) {
+    public void save(Object... objToSave) {
         EntityManager entityManager = EntityManagerProvider.create();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
-            Object saved = entityManager.merge(objToSave);
-            System.out.println("Saved object: " + saved.toString());
+            for (Object singleObject : objToSave) {
+                Object saved = entityManager.merge(singleObject);
+                System.out.println("Saved object: " + saved.toString());
+            }
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
@@ -35,5 +42,9 @@ public class RepositoryService {
         } finally {
             readEntityManager.close();
         }
+    }
+
+    public Object findById(long id, Class clazz) {
+        return EntityManagerProvider.create().find(clazz, id);
     }
 }

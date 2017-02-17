@@ -23,11 +23,13 @@ public class Climber {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "climber_id_sequence")
     private Long climberId;
 
-    @Column(nullable = false) private String name;
+    @Column(nullable = false)
+    private String name;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "CLIMBERS_ROUTES", joinColumns = {@JoinColumn(name = "climberId")},
-            inverseJoinColumns = {@JoinColumn(name = "routeId")}) private List<Route> routes = new ArrayList<>();
+            inverseJoinColumns = {@JoinColumn(name = "routeId")})
+    private List<Route> routes = new ArrayList<>();
 
     Climber() {
     }
