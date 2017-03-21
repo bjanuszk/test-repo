@@ -2,19 +2,26 @@ package springboot.hibernate.service;
 
 import org.springframework.stereotype.Component;
 import springboot.hibernate.entity.Climber;
-import springboot.hibernate.entity.Route;
-import springboot.hibernate.entity.SportRoute;
-import springboot.hibernate.entity.TradRoute;
 import springboot.hibernate.session.EntityManagerProvider;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 @Component
 public class RepositoryService {
+
+    public void testCriteriaBuilder() {
+        EntityManager entityManager = EntityManagerProvider.create();
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Climber> query = cb.createQuery(Climber.class);
+        Root<Climber> climber = query.from(Climber.class);
+        CriteriaQuery<Climber> query1 = query.select(climber).where(cb.equal(climber.get("id"), 1));
+    }
 
     public void save(Object... objToSave) {
         EntityManager entityManager = EntityManagerProvider.create();

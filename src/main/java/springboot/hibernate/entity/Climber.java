@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -31,6 +32,9 @@ public class Climber {
             inverseJoinColumns = {@JoinColumn(name = "routeId")})
     private List<Route> routes = new ArrayList<>();
 
+    @Embedded
+    private Nickname nickname;
+
     Climber() {
     }
 
@@ -54,6 +58,14 @@ public class Climber {
         for (Route r : route) {
             this.routes.add(r);
         }
+    }
+
+    public Nickname getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(final Nickname nickname) {
+        this.nickname = nickname;
     }
 
     @Override

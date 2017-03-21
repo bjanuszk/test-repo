@@ -9,9 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import springboot.hibernate.entity.Route;
 import springboot.hibernate.entity.Climber;
 import springboot.hibernate.entity.Message;
+import springboot.hibernate.entity.Nickname;
+import springboot.hibernate.entity.Route;
 import springboot.hibernate.entity.SportRoute;
 import springboot.hibernate.entity.TradRoute;
 import springboot.hibernate.service.RepositoryService;
@@ -38,14 +39,15 @@ public class H2DbController {
     @RequestMapping("/climberTest")
     public String climberTest() {
         Route znikajacyPunkt = new SportRoute("Znikajacy Punkt", "7a+", new Date());
-        Route  ambrozy = new SportRoute("Ambrozy", "7a", new Date());
-        Route  nosZubra = new SportRoute("Nos Zubra", "7b", new Date());
-        Route  hokej = new SportRoute("Hokej", "7a", new Date());
-        Route  brzytwa = new SportRoute("Brzytwa", "6c+", new Date());
+        Route ambrozy = new SportRoute("Ambrozy", "7a", new Date());
+        Route nosZubra = new SportRoute("Nos Zubra", "7b", new Date());
+        Route hokej = new SportRoute("Hokej", "7a", new Date());
+        Route brzytwa = new SportRoute("Brzytwa", "6c+", new Date());
         Route bumerang = new TradRoute("Bumerang", "7b", 2);
 
         Climber bartek = new Climber("Bartek");
         bartek.addRoutes(znikajacyPunkt, ambrozy, bumerang);
+        bartek.setNickname(new Nickname("bartol"));
 
         Climber gosia = new Climber("Gosia");
         gosia.addRoutes(ambrozy, nosZubra, hokej, brzytwa, bumerang);

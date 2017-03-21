@@ -1,15 +1,83 @@
-- Get familiar with GitHub via command line			                |work
-- JBehave							                                              |work
 - Hibernate & Sybase				                    		                |home (business CPU)
-- Refresh JUnit, Mockito, AssertJ	                          		|home/work
-- Refresh Maven	(build phases, lifecycle)                     |home/work
-- TeamCity: simple project with unit test connected to Github	|home/work
 - JSF								                                                 |low priority
 - Liquibase  							                                          |low priority
 - Transactions in Spring                                      |home/work
 - algorytmy sortujące: implementacja                          |home/work
-- hashCode and equlas in collections                          |home/work
-- xml overview, schema etc.                                   |home/work
+- Spring Data                                                 |home/work
+- Spring Hibernate support                                    |home/work
+________________________________________________________________________________________________________________________
+- Manifest file
+
+Znajduje sie w META-INF dla archiwów JAR, WAR, EAR. Zawiera zbiór właściwości kluch wartość (klucz: wartość)
+opisujących archiwum.
+
+Przykladowe wpisy:
+Manifest-Version: 1.0   standardowy, kiedy nie potrzeba wiecej wpisów
+Main-Class: com.bj.MainInvoke   określa punkt startowy aplikacji, dla wykonywalnych jarów
+Created-By: 1.2 (Sun Microsystems Inc.)
+Class-Path: jar1-name jar2-name directory-name/jar3-name   dodaje zaleznosci do jar'a
+
+dodatkowe np. dla spring boot'a:
+Start-Class: com.nokia.sm.statistics.StatisticsApp        klasa startowa aplikacji
+Spring-Boot-Version: 1.2.7.RELEASE                        wersja spring boot'a
+Main-Class: org.springframework.boot.loader.JarLauncher   klasa startowa spring'a
+________________________________________________________________________________________________________________________
+- Get familiar with GitHub via command line			                |work
+git push master
+________________________________________________________________________________________________________________________
+- JBehave							                                              |work
+package springboot.hello.jbehave
+________________________________________________________________________________________________________________________
+- Refresh JUnit, Mockito, AssertJ	                          		|home/work
+BDDMockito, CoreMatchers, Assert.assertThat
+________________________________________________________________________________________________________________________
+- Refresh Maven	(build phases, lifecycle)                     |home/work
+
+Cykle projektu:
+- clean - czysci katalog roboczy 'target'
+- default (aka. build) - glowny cykl skladajacy sie z wielu faz w wyniku ktorych powstaje wynikowy plik (jar, war, ear)
+- site - tworzy strone WWW z dokumentacja do projektu (zaleznosci, licencje, pluginy)
+
+Fazy:
+- validate
+- process-resources: kopiuje pliki z src/main/resources do target/classes/
+- compile - kompiluje .java do .class i wrzuca do target/classes, dodatkowo tworzy katalog maven-status z wynikem
+  kompilacji (pliki na wejsciu i pliki na wyjsciu)
+- process-test-resources: kopiuje pliki z src/test/resources do target/test-classes
+- test-compile - kompiluje pliki .java z src/test/java i kopiuje do target/test-classes
+- test - uruchamia testy
+- package - pakuje aplikacje (tworzy jar, war, ear) i kopiuje do target, dodatkowo tworzy plik
+  target/maven-archiver/pom.properties
+- install - wrzuca paczke do lokalnego repozytorium (.m2)
+- deploy - instaluje paczke w zdalnym repozytorium kiedy jest ustawione w pom.xml
+
+Kolejne fazy wystepuja po sobie, np. deploy wykonuje wszystkie poprzednie fazy.
+
+Cele (goals) - najmniejsza jednostka pracy w Maven. Kazda faza sklada sie z jednego lub wiecej goali np. clean sklada
+ sie z pre-clean, clean, post-clean, ale w domyslnej konfiguracji tylko clean jest wykonywana.
+________________________________________________________________________________________________________________________
+- xml overview, schema, parsery, xslt                         |home/work
+
+XML Extensible Markup Language
+
+XSL - arkusze stylow dla XML, przykladem jest CSS dla HTML
+
+XSLT - transformacja dokumentu XML na podstawie akrusza stylow XSL do innego dokumentu XML
+
+.xsd pliki xml schema zawierajace 'interfejs' znacznikow: nazwa, atrybuty, orgraniczenia wartosci...
+
+XML namespace - zbioru nazw znaczników
+________________________________________________________________________________________________________________________
+- TeamCity: simple project with unit test connected to Github	|home/work
+________________________________________________________________________________________________________________________
+- hashCode and equals in collections                          |home/work
+
+EQUALS odpowiada za dodawanie elementow do zbioru (HashSet) oraz za sprawdzanie kluczy podczas dodawania do HashMap'y
+ (contains dziala na metodzie equlas)
+Element nie zostanie dodany do zbioru, jezeli zbior juz zawiera taki element ze equals zwraca true.
+
+HASHCODE odpowiada za kolejnosc w kolekcjach typu Hash...
+Elementy sa ustawiane zgodnie z rosnacymi wartosciami hashCode.
 ________________________________________________________________________________________________________________________
 - inner classes                                              |home/work
 
