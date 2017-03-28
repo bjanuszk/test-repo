@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springboot.hibernate.dto.MostDifficultRouteDTO;
 import springboot.hibernate.entity.Climber;
 import springboot.hibernate.entity.Message;
 import springboot.hibernate.entity.Nickname;
@@ -20,6 +21,11 @@ import springboot.hibernate.session.SessionFactoryProvider;
 
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ListJoin;
+import javax.persistence.criteria.Root;
 
 @RestController
 public class H2DbController {
@@ -69,6 +75,48 @@ public class H2DbController {
 
         List<Route> all = repositoryService.getAll(Route.class);
         return all.toString();
+    }
+
+    @RequestMapping("/cbAllClimbers")
+    public List<Climber> cbAllClimbers() {
+        CriteriaBuilder cb = repositoryService.getCriteriaBuilder();
+        CriteriaQuery<Climber> climberCriteriaQuery = cb.createQuery(Climber.class);
+        Root<Climber> root = climberCriteriaQuery.from(Climber.class);
+        CriteriaQuery<Climber> getAllClimbersQuery = climberCriteriaQuery.select(root);
+        List<Climber> climbers = repositoryService.executeQuery(getAllClimbersQuery);
+        System.out.println("### [cb] All climbers: " + climbers.size());
+        return climbers;
+    }
+
+    @RequestMapping("/jpqlAllClimbers")
+    public List<Climber> jpqlAllClimbers() {
+        String allClimbers = " select c from Climber c";
+        List climbers = repositoryService.executeQuery(allClimbers);
+        System.out.println("### [jpql] All climbers: " + climbers.size());
+        return climbers;
+    }
+
+    @RequestMapping("/cbMostDifficultRoute")
+    public List<MostDifficultRouteDTO> cbMostDifficultRoute() {
+        CriteriaBuilder cb = repositoryService.getCriteriaBuilder();
+        CriteriaQuery<MostDifficultRouteDTO> query = cb.createQuery(MostDifficultRouteDTO.class);
+        Root<Climber> climberRoot = query.from(Climber.class);
+        ListJoin<Climber, Route> routes = climberRoot.joinList("routes");
+        CriteriaQuery<MostDifficultRouteDTO> most = query.select(cb
+                .construct(MostDifficultRouteDTO.class, climberRoot.get("name"),
+                        cb.max(routes.get("difficulty")))).groupBy(climberRoot.get("name"));
+        List<MostDifficultRouteDTO> mostDifficultRouteDTOS = repositoryService.executeQuery(most);
+        System.out.println("### [criteria] Most difficult routes: " + mostDifficultRouteDTOS.size());
+        return mostDifficultRouteDTOS;
+    }
+
+    @RequestMapping("/jpqlMostDifficultRoute")
+    public List<MostDifficultRouteDTO> jpqlMostDifficultRoute() {
+        String mostDifficultRoute = "SELECT NEW springboot.hibernate.dto.MostDifficultRouteDTO(c.name, MAX(route" +
+                "" + ".difficulty)) FROM Climber c JOIN c.routes route GROUP BY c.name";
+        List mostDifficultRoutes = repositoryService.executeQuery(mostDifficultRoute);
+        System.out.println("### [jpql] Most difficult routes: " + mostDifficultRoutes.size());
+        return mostDifficultRoutes;
     }
 
     @RequestMapping("/routeIdTest/{id}")

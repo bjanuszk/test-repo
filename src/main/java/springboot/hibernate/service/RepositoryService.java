@@ -4,10 +4,13 @@ import org.springframework.stereotype.Component;
 import springboot.hibernate.entity.Climber;
 import springboot.hibernate.session.EntityManagerProvider;
 
+import java.io.OutputStream;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -49,6 +52,22 @@ public class RepositoryService {
         } finally {
             readEntityManager.close();
         }
+    }
+
+    public <T> List<T> executeQuery(CriteriaQuery<T> criteriaQuery) {
+        EntityManager entityManager = EntityManagerProvider.create();
+        TypedQuery<T> query = entityManager.createQuery(criteriaQuery);
+        return query.getResultList();
+    }
+
+    public List executeQuery(String jpqlQueryString) {
+        EntityManager entityManager = EntityManagerProvider.create();
+        Query query = entityManager.createQuery(jpqlQueryString);
+        return query.getResultList();
+    }
+
+    public CriteriaBuilder getCriteriaBuilder() {
+        return EntityManagerProvider.create().getCriteriaBuilder();
     }
 
     public Object findById(long id, Class clazz) {

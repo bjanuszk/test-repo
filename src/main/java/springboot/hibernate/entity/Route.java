@@ -1,5 +1,7 @@
 package springboot.hibernate.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -30,6 +32,7 @@ public abstract class Route {
 
     protected String difficulty;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "routes")
     protected Set<Climber> climbers;
 

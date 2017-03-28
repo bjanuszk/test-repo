@@ -6,6 +6,39 @@
 - Spring Data                                                 |home/work
 - Spring Hibernate support                                    |home/work
 ________________________________________________________________________________________________________________________
+- Złożoność algorytmow
+Wyrozniamy dwa rodzaje zlozonosci algorytmow:
+- pamieciową: (jak duzo pamieci RAM lub dyskowej) jest zużywanej na dane pośrednie podczas pracy algorytmu,
+- czasową: jak dużo elementarnych operacji wykonywanych jest podczas pracy algorytmu
+Obie zlozonosci najlepiej wyznaczac dla najgorszego przypadku
+
+Przykladowe:
+O(n)
+O(n^2)
+O(2^n)
+O(log(n))
+O(n*log(n))
+________________________________________________________________________________________________________________________
+- JDK 9 lipiec 2017
+________________________________________________________________________________________________________________________
+- Java project classpath
+
+usage: java -cp <path1>:<path2> package.ClassToRun
+
+-cp okresla gdzie JVM bedzie szukala definicji klas potrzebnych do kompilacji lub uruchomienia
+
+Jesli klasa, ktora chce odpalic na zaleznosc na jakas klase zewnetrzna ktora nie jest dolaczona do projektu to trzeba
+ ustawic -cp na jar'a/folder ktory zawiera definicje tej klasy zewnetrznej.
+
+!!! DZIWNE:
+1. Stworzylem applikacje SpringBoot'owa ktora dolacza zaleznosci do folderu lib w pliku .jar.
+2. Odpalilem jar'a (java -jar JAR_FILE) -> dziala: OK
+3. Usunalem jedna z  wymaganych zaleznoci i odpalilem jar'a -> nie dziala: OK
+4. Dodalem przelacznik -cp z namiarem na wymagany zewnetrzny jar i odpalilem -> dalej nie dziala: WTF ???
+!!! RESOLVED:
+Nie można uzywac jednoczescie przełączników -jar oraz -cp. Wszystkie dependency musza być w /libs w jarze lub
+wyspecyfikowane w MANIFEST.MF
+________________________________________________________________________________________________________________________
 - Manifest file
 
 Znajduje sie w META-INF dla archiwów JAR, WAR, EAR. Zawiera zbiór właściwości kluch wartość (klucz: wartość)
