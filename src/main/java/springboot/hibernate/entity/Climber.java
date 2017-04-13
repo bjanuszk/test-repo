@@ -14,9 +14,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 
 @Entity
+@NamedQuery(name="getRoutesOfClimber",query = "SELECT c.routes FROM Climber c WHERE c.climberId = ?0")
 public class Climber {
 
     @Id

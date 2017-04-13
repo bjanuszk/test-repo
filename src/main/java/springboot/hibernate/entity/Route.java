@@ -15,11 +15,13 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
+@NamedQuery(name = "getClimbersOfRoute",query = "SELECT c.name FROM Route r JOIN r.climbers c WHERE r.routeId = ?0")
 public abstract class Route {
 
     @Id

@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component;
 import springboot.hibernate.entity.Climber;
 import springboot.hibernate.session.EntityManagerProvider;
 
-import java.io.OutputStream;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -26,22 +25,22 @@ public class RepositoryService {
         CriteriaQuery<Climber> query1 = query.select(climber).where(cb.equal(climber.get("id"), 1));
     }
 
-    public void save(Object... objToSave) {
+    public Object save(Object objToSave) {
         EntityManager entityManager = EntityManagerProvider.create();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
-            for (Object singleObject : objToSave) {
-                Object saved = entityManager.merge(singleObject);
-                System.out.println("Saved object: " + saved.toString());
-            }
+            Object saved = entityManager.merge(objToSave);
+            System.out.println("Saved object: " + saved.toString());
             transaction.commit();
+            return saved;
         } catch (Exception e) {
             transaction.rollback();
             e.printStackTrace();
         } finally {
             entityManager.close();
         }
+        return null;
     }
 
     public List getAll(Class clazz) {
@@ -72,5 +71,14 @@ public class RepositoryService {
 
     public Object findById(long id, Class clazz) {
         return EntityManagerProvider.create().find(clazz, id);
+    }
+
+    public List executeNamedQuery(String namedQuery, Object... queryParams) {
+        EntityManager entityManager = EntityManagerProvider.create();
+        Query query = entityManager.createNamedQuery(namedQuery);
+        for (int i = 0; i < queryParams.length; i++) {
+            query = query.setParameter(i, queryParams[i]);
+        }
+        return query.getResultList();
     }
 }

@@ -51,6 +51,13 @@ public class H2DbController {
         Route brzytwa = new SportRoute("Brzytwa", "6c+", new Date());
         Route bumerang = new TradRoute("Bumerang", "7b", 2);
 
+        znikajacyPunkt = (Route) repositoryService.save(znikajacyPunkt);
+        ambrozy = (Route) repositoryService.save(ambrozy);
+        nosZubra = (Route) repositoryService.save(nosZubra);
+        hokej = (Route) repositoryService.save(hokej);
+        brzytwa = (Route) repositoryService.save(brzytwa);
+        bumerang = (Route) repositoryService.save(bumerang);
+
         Climber bartek = new Climber("Bartek");
         bartek.addRoutes(znikajacyPunkt, ambrozy, bumerang);
         bartek.setNickname(new Nickname("bartol"));
@@ -58,7 +65,8 @@ public class H2DbController {
         Climber gosia = new Climber("Gosia");
         gosia.addRoutes(ambrozy, nosZubra, hokej, brzytwa, bumerang);
 
-        repositoryService.save(gosia, bartek);
+        repositoryService.save(bartek);
+        repositoryService.save(gosia);
 
         List<Climber> climbers = repositoryService.getAll(Climber.class);
         climbers.stream().forEach(cl -> out.println(cl.toString()));
@@ -103,8 +111,8 @@ public class H2DbController {
         Root<Climber> climberRoot = query.from(Climber.class);
         ListJoin<Climber, Route> routes = climberRoot.joinList("routes");
         CriteriaQuery<MostDifficultRouteDTO> most = query.select(cb
-                .construct(MostDifficultRouteDTO.class, climberRoot.get("name"),
-                        cb.max(routes.get("difficulty")))).groupBy(climberRoot.get("name"));
+                .construct(MostDifficultRouteDTO.class, climberRoot.get("name"), cb.max(routes.get("difficulty"))))
+                .groupBy(climberRoot.get("name"));
         List<MostDifficultRouteDTO> mostDifficultRouteDTOS = repositoryService.executeQuery(most);
         System.out.println("### [criteria] Most difficult routes: " + mostDifficultRouteDTOS.size());
         return mostDifficultRouteDTOS;
@@ -117,6 +125,16 @@ public class H2DbController {
         List mostDifficultRoutes = repositoryService.executeQuery(mostDifficultRoute);
         System.out.println("### [jpql] Most difficult routes: " + mostDifficultRoutes.size());
         return mostDifficultRoutes;
+    }
+
+    @RequestMapping("/getRoutesOfClimber/{climberId}")
+    public List<Route> getRoutesOfClimber(@PathVariable long climberId) {
+        return repositoryService.executeNamedQuery("getRoutesOfClimber", climberId);
+    }
+
+    @RequestMapping("/getClimbersOfRoute/{routeId}")
+    public List<Route> getClimbersOfRoute(@PathVariable long routeId) {
+        return repositoryService.executeNamedQuery("getClimbersOfRoute", routeId);
     }
 
     @RequestMapping("/routeIdTest/{id}")

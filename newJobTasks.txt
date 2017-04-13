@@ -1,10 +1,42 @@
 - Hibernate & Sybase				                    		                |home (business CPU)
 - JSF								                                                 |low priority
 - Liquibase  							                                          |low priority
-- Transactions in Spring                                      |home/work
-- algorytmy sortujące: implementacja                          |home/work
 - Spring Data                                                 |home/work
 - Spring Hibernate support                                    |home/work
+________________________________________________________________________________________________________________________
+- Transactions in Spring                                      |home/work
+
+Wynagane adnotacje:
+@EnableTransactionManagement na klasie @Configuration
+@Transactional na klasach lub medotach
+Dodatkowo w kontekscie JPA trzeba skonfigurowac:
+DataSource, LocalContainerEntityManagerFactoryBean, JpaTransactionManager,
+wtedy tranzakcyjnosc zaczyna dzialac na EntityManager'ze wstrzykiwanym adnotacja @PersistenceContext.
+
+https://dzone.com/articles/spring-transaction-management
+________________________________________________________________________________________________________________________
+- CQRS example
+Command Query Responsibility Segregation
+
+________________________________________________________________________________________________________________________
+- @Component vs @Service vs @Controller vs @Repository        |home/work
+
+To sa praktycznie jednoznaczne adnotacje, które nie dodają funkcjonalnosci do baen'ow, poza @Repository, która to
+dodaje translacje wyjatkow zalezna od implementacji JPA.
+________________________________________________________________________________________________________________________
+- @Inject vs @Autowired vs @Resource                          |home/work
+
+@Inject to standardowa adnotacja Java ale Spring ja wspiera i moze byc uzywana zamiennie z Autowired podczas
+wstrzykiwania zeleznosci.
+@Resource to adnotacja Springa, ktora dziala praktycznie tak samo jak dwie poprzednie. Dodatkowo przyjmuje nazwe
+bean'a, ktory ma byc wstrzykniety co pomaga rozwiazywac konflikty kiedy mamy wiecej niz 1 bean do wyboru i w ten
+sposob pomaga uniknac dodatkowej adnotacji @Qualifier, która musi byc dodana do @Inject lub @Autowired.
+________________________________________________________________________________________________________________________
+- algorytmy sortujące                                         |home/work
+
+http://www.algorytm.org/algorytmy-sortowania/
+
+Babelkowe, przez wstawianie, quicksort (szybkie), scalanie ciagow, przez zliczanie ...
 ________________________________________________________________________________________________________________________
 - Złożoność algorytmow
 Wyrozniamy dwa rodzaje zlozonosci algorytmow:
