@@ -1,0 +1,87 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="bjanuszk (generated)" id="1492163389301-1">
+        <createSequence sequenceName="CLIMBER_SEQUENCE"/>
+    </changeSet>
+    <changeSet author="bjanuszk (generated)" id="1492163389301-2">
+        <createSequence sequenceName="HIBERNATE_SEQUENCE"/>
+    </changeSet>
+    <changeSet author="bjanuszk (generated)" id="1492163389301-3">
+        <createSequence sequenceName="ROUTE_SEQUENCE"/>
+    </changeSet>
+    <changeSet author="bjanuszk (generated)" id="1492163389301-4">
+        <createTable tableName="CLIMBER">
+            <column name="CLIMBERID" type="BIGINT(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NICK" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="bjanuszk (generated)" id="1492163389301-5">
+        <createTable tableName="CLIMBERS_ROUTES">
+            <column name="CLIMBERID" type="BIGINT(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ROUTEID" type="BIGINT(19)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="bjanuszk (generated)" id="1492163389301-6">
+        <createTable tableName="MESSAGE">
+            <column name="ID" type="BIGINT(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MESSAGE" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="bjanuszk (generated)" id="1492163389301-7">
+        <createTable tableName="ROUTE">
+            <column name="TYPE" type="VARCHAR(31)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ROUTEID" type="BIGINT(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DIFFICULTY" type="VARCHAR(255)"/>
+            <column name="NAME" type="VARCHAR(255)"/>
+            <column name="NUMBEROFPITCHES" type="INT(10)"/>
+            <column name="FIRSTASCENT" type="TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="bjanuszk (generated)" id="1492163389301-8">
+        <addPrimaryKey columnNames="ROUTEID" constraintName="CONSTRAINT_4" tableName="ROUTE"/>
+    </changeSet>
+    <changeSet author="bjanuszk (generated)" id="1492163389301-9">
+        <addPrimaryKey columnNames="CLIMBERID" constraintName="CONSTRAINT_5" tableName="CLIMBER"/>
+    </changeSet>
+    <changeSet author="bjanuszk (generated)" id="1492163389301-10">
+        <addPrimaryKey columnNames="ID" constraintName="CONSTRAINT_6" tableName="MESSAGE"/>
+    </changeSet>
+    <changeSet author="bjanuszk (generated)" id="1492163389301-11">
+        <createIndex indexName="FK42IXEBVX6J30A8X44TQCHB5RF_INDEX_7" tableName="CLIMBERS_ROUTES">
+            <column name="CLIMBERID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="bjanuszk (generated)" id="1492163389301-12">
+        <createIndex indexName="FKH1NJQQM6PUDFJYFMGCU1KYFUH_INDEX_7" tableName="CLIMBERS_ROUTES">
+            <column name="ROUTEID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="bjanuszk (generated)" id="1492163389301-13">
+        <addForeignKeyConstraint baseColumnNames="CLIMBERID" baseTableName="CLIMBERS_ROUTES" constraintName="FK42IXEBVX6J30A8X44TQCHB5RF" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="CLIMBERID" referencedTableName="CLIMBER"/>
+    </changeSet>
+    <changeSet author="bjanuszk (generated)" id="1492163389301-14">
+        <addForeignKeyConstraint baseColumnNames="ROUTEID" baseTableName="CLIMBERS_ROUTES" constraintName="FKH1NJQQM6PUDFJYFMGCU1KYFUH" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ROUTEID" referencedTableName="ROUTE"/>
+    </changeSet>
+    <changeSet id="1492163389301-15" author="bjanuszk">
+        <insert tableName="CLIMBER">
+            <column name="CLIMBERID" value="1"></column>
+            <column name="NAME" value="Adam Ondra"></column>
+            <column name="NICK" value="ao"></column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

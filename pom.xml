@@ -65,6 +65,13 @@
             <artifactId>h2</artifactId>
             <version>1.4.193</version>
         </dependency>
+
+        <!--LIQUIBASE-->
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>3.5.3</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -78,6 +85,15 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>3.5.3</version>
+                <configuration>
+                    <changeLogFile>changelog-master.xml</changeLogFile>
+                    <propertyFile>db.properties</propertyFile>
                 </configuration>
             </plugin>
         </plugins>

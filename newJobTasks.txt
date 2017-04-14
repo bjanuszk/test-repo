@@ -1,8 +1,11 @@
 - Hibernate & Sybase				                    		                |home (business CPU)
 - JSF								                                                 |low priority
-- Liquibase  							                                          |low priority
 - Spring Data                                                 |home/work
 - Spring Hibernate support                                    |home/work
+________________________________________________________________________________________________________________________
+- Liquibase  							                                          |low priority
+
+http://blog.holowko.pl/2011/10/25/liquibase-zarzadzanie-zmianami-bazy-danych/
 ________________________________________________________________________________________________________________________
 - Transactions in Spring                                      |home/work
 
