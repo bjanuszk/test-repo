@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.util.Properties;
 
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 
@@ -28,7 +29,7 @@ public class DatabaseConfig {
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean = new
                 LocalContainerEntityManagerFactoryBean();
         localContainerEntityManagerFactoryBean.setDataSource(dataSource());
@@ -45,12 +46,17 @@ public class DatabaseConfig {
         return localContainerEntityManagerFactoryBean;
     }
 
+//    @Bean
+//    public EntityManagerFactory entityManagerFactory (){
+//        return entityManagerFactoryBean().getObject();
+//    }
+
     @Bean
     public JpaTransactionManager transactionManager() {
         JpaTransactionManager transactionManager =
                 new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(
-                entityManagerFactoryBean().getObject());
+                entityManagerFactory().getObject());
         return transactionManager;
     }
 }

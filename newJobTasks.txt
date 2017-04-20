@@ -1,7 +1,15 @@
 - Hibernate & Sybase				                    		                |home (business CPU)
 - JSF								                                                 |low priority
-- Spring Data                                                 |home/work
 - Spring Hibernate support                                    |home/work
+________________________________________________________________________________________________________________________
+- Spring Data                                                 |home/work
+
+Automatyczne generowanie warstwy DAO na podstawie nazw metod interfejsu. Interfejs musi rozszerzad Repository lub
+CrudRepository. Dodatkowo musi byc a kontekscie aplikacji zdefiniowany bean o nazwie entityManagerFactory.
+
+Przyklad w pakiecie springboot.hibernate.springdata
+
+http://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods
 ________________________________________________________________________________________________________________________
 - Liquibase  							                                          |low priority
 
