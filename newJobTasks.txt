@@ -2,6 +2,10 @@
 - JSF								                                                 |low priority
 - Spring Hibernate support                                    |home/work
 ________________________________________________________________________________________________________________________
+- Angular 2
+angular-cli zestaw narzedzi to zarzadzania projektem webowym
+https://github.com/angular/angular-cli
+________________________________________________________________________________________________________________________
 - Spring Data                                                 |home/work
 
 Automatyczne generowanie warstwy DAO na podstawie nazw metod interfejsu. Interfejs musi rozszerzad Repository lub
